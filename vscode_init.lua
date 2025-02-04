@@ -10,6 +10,9 @@ vim.cmd('nmap <leader>c :e ~/.config/nvim/vscode_init.lua<cr>')
 -- save
 vim.cmd('nmap <leader>s :w<cr>')
 
+-- close
+vim.cmd('nmap <leader>w :q<cr>')
+
 -- paste without overwriting
 vim.keymap.set('v', 'p', 'P')
 
