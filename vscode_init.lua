@@ -16,6 +16,9 @@ vim.cmd('nmap <leader>w :q<cr>')
 -- get file name
 vim.cmd('nmap <leader>n :let @+ = expand(\'%:t\')<CR>')
 
+-- go to definition
+vim.cmd("nmap <leader>d gd")
+
 -- paste without overwriting
 vim.keymap.set('v', 'p', 'P')
 
