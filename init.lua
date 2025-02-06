@@ -1,8 +1,14 @@
+-- lazy packet manager
+require("config.lazy")
+
+-- relative number
+vim.cmd('set number relativenumber')
+
 -- <leader> key
 vim.g.mapleader = ' '
 
 -- open config
-vim.cmd('nmap <leader>c :e ~/.config/nvim/vscode_init.lua<cr>')
+vim.cmd('nmap <leader>c :e ~/.config/nvim/init.lua<cr>')
 
 -- save
 vim.cmd('nmap <leader>s :w<cr>')
@@ -37,3 +43,16 @@ vim.opt.ignorecase = true
 
 -- disable "ignorecase" option if the search pattern contains upper case characters
 vim.opt.smartcase = true
+
+vim.g.firenvim_config = {
+    globalSettings = { alt = "all" },
+    localSettings = {
+        [".*"] = {
+            cmdline  = "neovim",
+            content  = "text",
+            priority = 0,
+            selector = "textarea",
+            takeover = "never"
+        }
+    }
+}
