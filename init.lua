@@ -7,8 +7,8 @@ vim.cmd('set number relativenumber')
 -- <leader> key
 vim.g.mapleader = ' '
 
--- open config
-vim.cmd('nmap <leader>c :e ~/.config/nvim/init.lua<cr>')
+-- cut
+vim.cmd('nmap <leader>c "+d')
 
 -- save
 vim.cmd('nmap <leader>s :w<cr>')
