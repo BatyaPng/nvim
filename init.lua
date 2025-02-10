@@ -35,8 +35,11 @@ vim.keymap.set('n', '<Esc>', ':nohlsearch<cr>')
 vim.cmd('nmap j gj')
 vim.cmd('nmap k gk')
 
--- sync system clipboard
-vim.opt.clipboard = 'unnamedplus'
+-- use clipboard for yank and paste
+vim.keymap.set({ "n", "v", "x" }, "y", '"+y', { noremap = true, silent = true })
+vim.keymap.set({ "n", "v", "x" }, "Y", '"+Y', { noremap = true, silent = true })
+vim.keymap.set({ "n", "v", "x" }, "p", '"+p', { noremap = true, silent = true })
+vim.keymap.set({ "n", "v", "x" }, "P", '"+P', { noremap = true, silent = true })
 
 -- search ignoring case
 vim.opt.ignorecase = true
@@ -44,6 +47,7 @@ vim.opt.ignorecase = true
 -- disable "ignorecase" option if the search pattern contains upper case characters
 vim.opt.smartcase = true
 
+-- firenvim extension
 vim.g.firenvim_config = {
     globalSettings = { alt = "all" },
     localSettings = {

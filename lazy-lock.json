@@ -1,3 +1,4 @@
 {
+  "firenvim": { "branch": "master", "commit": "f8a5fa6f1ed42536490acf0840497c40331c184f" },
   "lazy.nvim": { "branch": "main", "commit": "f15a93907ddad3d9139aea465ae18336d87f5ce6" }
 }
