@@ -60,3 +60,13 @@ vim.g.firenvim_config = {
         }
     }
 }
+
+-- keep clean cmd after use
+vim.api.nvim_create_autocmd("CmdlineLeave", {
+    callback = function()
+        vim.defer_fn(function()
+            vim.cmd("echo ''")
+        end, 10)
+    end,
+})
+
