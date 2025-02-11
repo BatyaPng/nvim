@@ -36,10 +36,21 @@ vim.cmd('nmap j gj')
 vim.cmd('nmap k gk')
 
 -- use clipboard for yank and paste
-vim.keymap.set({ "n", "v", "x" }, "y", '"+y', { noremap = true, silent = true })
-vim.keymap.set({ "n", "v", "x" }, "Y", '"+Y', { noremap = true, silent = true })
-vim.keymap.set({ "n", "v", "x" }, "p", '"+p', { noremap = true, silent = true })
-vim.keymap.set({ "n", "v", "x" }, "P", '"+P', { noremap = true, silent = true })
+vim.keymap.set({ "n", "v", "x" }, "y", function()
+    return vim.fn.getregtype('"') == "" and '"+y' or "y"
+end, { noremap = true, silent = true, expr = true })
+
+vim.keymap.set({ "n", "v", "x" }, "Y", function()
+    return vim.fn.getregtype('"') == "" and '"+Y' or "Y"
+end, { noremap = true, silent = true, expr = true })
+
+vim.keymap.set({ "n", "v", "x" }, "p", function()
+    return vim.fn.getreg('"') == "" and '"+p' or "p"
+end, { noremap = true, silent = true, expr = true })
+
+vim.keymap.set({ "n", "v", "x" }, "P", function()
+    return vim.fn.getreg('"') == "" and '"+P' or "P"
+end, { noremap = true, silent = true, expr = true })
 
 -- search ignoring case
 vim.opt.ignorecase = true
