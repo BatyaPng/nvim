@@ -35,23 +35,6 @@ vim.keymap.set('n', '<Esc>', ':nohlsearch<cr>')
 vim.cmd('nmap j gj')
 vim.cmd('nmap k gk')
 
--- use clipboard for yank and paste
-vim.keymap.set({ "n", "v", "x" }, "y", function()
-    return vim.fn.getregtype('"') == "" and '"+y' or "y"
-end, { noremap = true, silent = true, expr = true })
-
-vim.keymap.set({ "n", "v", "x" }, "Y", function()
-    return vim.fn.getregtype('"') == "" and '"+Y' or "Y"
-end, { noremap = true, silent = true, expr = true })
-
-vim.keymap.set({ "n", "v", "x" }, "p", function()
-    return vim.fn.getreg('"') == "" and '"+p' or "p"
-end, { noremap = true, silent = true, expr = true })
-
-vim.keymap.set({ "n", "v", "x" }, "P", function()
-    return vim.fn.getreg('"') == "" and '"+P' or "P"
-end, { noremap = true, silent = true, expr = true })
-
 -- search ignoring case
 vim.opt.ignorecase = true
 
@@ -80,4 +63,24 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
         end, 10)
     end,
 })
+
+-- smart yank
+  local map = vim.api.nvim_set_keymap
+  local opts = { noremap = true, silent = true, expr = true }
+  
+  -- Map clipboard operations if no register is specified
+  for _, mode in ipairs({ 'n', 'v', 'x' }) do
+      for _, key in ipairs({ 'y', 'Y', 'p', 'P' }) do
+          map(mode, key, string.format([[v:register == '"' ? '"+%s' : '%s']], key, key), opts)
+      end
+  end
+  
+  -- Highlight on yank
+  vim.api.nvim_create_autocmd("TextYankPost", {
+      group = vim.api.nvim_create_augroup("GlobalYankClipboard", { clear = true }),
+      pattern = "*",
+      callback = function()
+          vim.highlight.on_yank({ higroup = "IncSearch", timeout = 150 })
+      end,
+  })
 
