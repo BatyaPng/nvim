@@ -25,6 +25,9 @@ vim.cmd('nmap <leader>n :let @+ = expand(\'%:t\')<CR>')
 -- go to definition
 vim.keymap.set('n', '<leader>d', 'gd')
 
+-- second word
+vim.keymap.set('n', '<leader>t', '0w')
+
 -- paste without overwriting
 vim.keymap.set('v', 'p', 'P')
 
@@ -88,3 +91,17 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
 vim.cmd('xmap ga <Plug>(EasyAlign)')
 
 vim.cmd('nmap ga <Plug>(EasyAlign)')
+
+-- Assign search
+vim.keymap.set('n', '<leader>a', function()
+  -- grab the word under the cursor
+  local word = vim.fn.expand('<cword>')
+  -- escape any magic chars in the word
+  local esc = vim.fn.escape(word, '\\/.*$^~[]')
+  -- build a very-magic pattern with lookbehind/lookahead
+  local pat = '\\vassign \\zs' .. esc .. '[ .]+\\ze ='
+  -- set it as the last search pattern
+  vim.fn.setreg('/', pat)
+  -- jump to the next match
+  vim.cmd('normal! n')
+end, { noremap = true, silent = true })
