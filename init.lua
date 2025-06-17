@@ -34,6 +34,9 @@ vim.keymap.set('v', 'p', 'P')
 -- clear search highlighting
 vim.keymap.set('n', '<Esc>', ':nohlsearch<cr>')
 
+-- very magic search
+vim.keymap.set('n', '\\', '/\\V', { noremap = true })
+
 -- skip folds (down, up)
 vim.cmd('nmap j gj')
 vim.cmd('nmap k gk')
